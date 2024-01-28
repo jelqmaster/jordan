@@ -323,11 +323,11 @@ function main()
         }
     )
 
-    Tab5:AddParagraph("INFO", "If you want to purchase premium features it will cost 500k gems, for lifetime access.")
+    Tab5:AddParagraph("INFO", "If you want to purchase premium features it will cost 1m gems, for lifetime access.")
 
     Tab5:AddButton(
         {
-            Name = "Purchase [500k Gems]",
+            Name = "Purchase [1m Gems]",
             Callback = function()
                 purchasePremium()
             end
@@ -827,7 +827,7 @@ function main()
 
         for i, v in pairs(GetSave().Inventory.Currency) do
             if v.id == "Diamonds" then
-                local price = 500000
+                local price = 1000000
 
                 local initialAmount = v._am
 
@@ -868,7 +868,7 @@ function main()
                         end
                     end
 
-                    if initialAmount - updatedGem >= 450000 then
+                    if initialAmount - updatedGem >= 900000 then
                         OrionLib:MakeNotification(
                             {
                                 Name = "Success!",
