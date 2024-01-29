@@ -18,6 +18,16 @@ function main()
         OrionLib:MakeWindow(
         {Name = "PS99 Script (Ver. 0.3)", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"}
     )
+
+    local Info =
+        Window:MakeTab(
+        {
+            Name = "INFO",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+        }
+    )
+
     local Tab =
         Window:MakeTab(
         {
@@ -79,6 +89,8 @@ function main()
             PremiumOnly = false
         }
     )
+
+    Info:AddParagraph("BEWARE!","If you paid for this script you got scammed.")
 
     local Section =
         Tab:AddSection(
