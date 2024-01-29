@@ -91,6 +91,13 @@ function main()
     )
 
     Info:AddParagraph("BEWARE!","If you paid for this script you got scammed.")
+    Info:AddLabel("https://discord.gg/Tkbe3Nh8")
+    Info:AddButton({
+    	Name = "Copy Discord Link",
+    	Callback = function()
+          		setclipboard("https://discord.gg/Tkbe3Nh8")
+      	end    
+    })
 
     local Section =
         Tab:AddSection(
