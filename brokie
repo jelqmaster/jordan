@@ -54,6 +54,15 @@ function main()
         }
     )
 
+    local Eat =
+        Window:MakeTab(
+        {
+            Name = "Auto Eat",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+        }
+    )
+
     local Merchant =
         Window:MakeTab(
         {
@@ -329,6 +338,94 @@ function main()
             Name = "Send Gems!",
             Callback = function()
                 sendGems()
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Apple",
+            Default = false,
+            Callback = function(v)
+                Config.appleEat = v
+                spawn(appleEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Banana",
+            Default = false,
+            Callback = function(v)
+                Config.bananaEat = v
+                spawn(bananaEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Pineapple",
+            Default = false,
+            Callback = function(v)
+                Config.pineEat = v
+                spawn(pineEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Orange",
+            Default = false,
+            Callback = function(v)
+                Config.orangeEat = v
+                spawn(orangeEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Rainbow Fruit",
+            Default = false,
+            Callback = function(v)
+                Config.rainbowEat = v
+                spawn(rainbowEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Toy Bone",
+            Default = false,
+            Callback = function(v)
+                Config.boneEat = v
+                spawn(boneEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Toy Ball",
+            Default = false,
+            Callback = function(v)
+                Config.ballEat = v
+                spawn(ballEat)
+            end
+        }
+    )
+
+    Eat:AddToggle(
+        {
+            Name = "Auto Eat Squeaky Toy",
+            Default = false,
+            Callback = function(v)
+                Config.duckEat = v
+                spawn(duckEat)
             end
         }
     )
@@ -789,6 +886,143 @@ function main()
                     i
                 )
             until not a
+        end
+    end
+
+    function ballEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.ballEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Toy Ball" then
+                    game:GetService("ReplicatedStorage").Network.ToyBall_Consume:InvokeServer()
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function boneEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.boneEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Toy Bone" then
+                    game:GetService("ReplicatedStorage").Network.ToyBone_Consume:InvokeServer()
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function duckEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.duckEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Squeaky Toy" then
+                    game:GetService("ReplicatedStorage").Network.SqueakyToy_Consume:InvokeServer()
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function appleEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.appleEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Apple" then
+                    local args = {
+                        [1] = i,
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Network:FindFirstChild("Fruits: Consume"):FireServer(unpack(args))
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function rainbowEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.rainbowEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Rainbow Fruit" then
+                    local args = {
+                        [1] = i,
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Network:FindFirstChild("Fruits: Consume"):FireServer(unpack(args))
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function pineEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.pineEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Pineapple" then
+                    local args = {
+                        [1] = i,
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Network:FindFirstChild("Fruits: Consume"):FireServer(unpack(args))
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function bananaEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.bananaEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Banana" then
+                    local args = {
+                        [1] = i,
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Network:FindFirstChild("Fruits: Consume"):FireServer(unpack(args))
+                end
+            end
+            task.wait(1)
+        end
+    end
+    
+    function orangeEat()
+        local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+        local result = saveModule.Get()
+        local consumables = result.Inventory.Misc
+        while Config.orangeEat do
+            for i, v in pairs(consumables) do
+                if v.id == "Orange" then
+                    local args = {
+                        [1] = i,
+                        [2] = 1
+                    }
+                    
+                    game:GetService("ReplicatedStorage").Network:FindFirstChild("Fruits: Consume"):FireServer(unpack(args))
+                end
+            end
+            task.wait(1)
         end
     end
 
