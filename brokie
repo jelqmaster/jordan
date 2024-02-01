@@ -395,6 +395,7 @@ function main()
     local Players = game:GetService("Players")
     local player = Players.LocalPlayer
     local playerGui = player:WaitForChild("PlayerGui")
+    local leadertab = player:WaitForChild("leaderstats")
     
     local screenGui = Instance.new("ScreenGui")
     screenGui.Parent = playerGui
@@ -405,13 +406,38 @@ function main()
     frame.Size = UDim2.new(1, 0, 1, 0)
     frame.Parent = screenGui
     
+    local gemLabel = Instance.new("TextLabel")
+    gemLabel.TextColor3 = Color3.new(0, 0, 0)
+    gemLabel.Size = UDim2.new(0, 200, 0, 50)
+    gemLabel.Position = UDim2.new(0, 10, 0.5, -25)
+    gemLabel.TextScaled = true
+    gemLabel.Parent = frame
+    
+    function updateGems()
+        local gems = nil
+        for _, child in pairs(leadertab:GetChildren()) do
+            if child:IsA("IntValue") and child.Name == "Diamonds" then
+                gems = child.Value
+                break
+            end
+        end
+        gemLabel.Text = "Gems: " .. (gems or "N/A")
+    end
+    
     function turnWhiteScreenOn()
         screenGui.Enabled = true
+        updateGems()
     end
     
     function turnWhiteScreenOff()
         screenGui.Enabled = false
     end
+    
+    leadertab.ChildChanged:Connect(function(child)
+        if child:IsA("IntValue") and child.Name == "Diamonds" then
+            updateGems()
+        end
+    end)
 
     function autoFishA()
         while true do
