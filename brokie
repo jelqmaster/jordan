@@ -91,11 +91,11 @@ function main()
     )
 
     Info:AddParagraph("BEWARE!","If you paid for this script you got scammed.")
-    Info:AddLabel("https://discord.gg/Tkbe3Nh8")
+    Info:AddLabel("https://discord.gg/HXZtG92k")
     Info:AddButton({
     	Name = "Copy Discord Link",
     	Callback = function()
-          		setclipboard("https://discord.gg/Tkbe3Nh8")
+          		setclipboard("https://discord.gg/HXZtG92k")
       	end    
     })
 
@@ -362,14 +362,16 @@ function main()
 
     Tab5:AddParagraph("INFO", "If you want to purchase premium features it will cost 1m gems, for lifetime access.")
 
-    Tab5:AddButton(
-        {
-            Name = "Purchase [1m Gems]",
-            Callback = function()
-                purchasePremium()
-            end
-        }
-    )
+    Tab5:AddLabel("Feature Broken, DM owner on discord to purchase.")
+
+    --Tab5:AddButton(
+    --    {
+    --        Name = "Purchase [1m Gems]",
+    --        Callback = function()
+    --           purchasePremium()
+    --        end
+    --    }
+    --)
 
     Merchant:AddButton(
         {
