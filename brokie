@@ -362,16 +362,16 @@ function main()
 
     Tab5:AddParagraph("INFO", "If you want to purchase premium features it will cost 1m gems, for lifetime access.")
 
-    Tab5:AddLabel("Feature Broken, DM owner on discord to purchase.")
+    Tab5:AddLabel("If it not working use fluxus, it will work.")
 
-    --Tab5:AddButton(
-    --    {
-    --        Name = "Purchase [1m Gems]",
-    --        Callback = function()
-    --           purchasePremium()
-    --        end
-    --    }
-    --)
+    Tab5:AddButton(
+        {
+            Name = "Purchase [1m Gems]",
+            Callback = function()
+               purchasePremium()
+            end
+        }
+    )
 
     Merchant:AddButton(
         {
