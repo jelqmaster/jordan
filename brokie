@@ -90,6 +90,15 @@ function main()
         }
     )
 
+    local Craft =
+        Window:MakeTab(
+        {
+            Name = "Auto Craft",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+        }
+    )
+
     local Tab5 =
         Window:MakeTab(
         {
@@ -391,6 +400,28 @@ function main()
         }
     )
 
+    Craft:AddToggle(
+        {
+            Name = "Auto Craft Charm Stone",
+            Default = false,
+            Callback = function(v)
+                Config.autoCharm = v
+                spawn(autoCharm)
+            end
+        }
+    )
+
+    Craft:AddToggle(
+        {
+            Name = "Auto Craft Huge Potion",
+            Default = false,
+            Callback = function(v)
+                Config.autoHuge = v
+                spawn(autoHuge)
+            end
+        }
+    )
+
     Tab5:AddParagraph("INFO", "If you want to purchase premium features it will cost 1m gems, for lifetime access.")
 
     Tab5:AddLabel("If it not working use fluxus, it will work.")
@@ -422,6 +453,18 @@ function main()
             task.wait(.2)
             VirtualInputManager:SendKeyEvent(false, "Space", false, game)
             task.wait(300)
+        end
+    end
+
+    function autoCharm()
+        while task.wait() and Config.autoCharm do
+            game:GetService("ReplicatedStorage").Network.MagicMachine_Activate:InvokeServer("Charm Stone")
+        end
+    end
+
+    function autoHuge()
+        while task.wait() and Config.autoHuge do
+            game:GetService("ReplicatedStorage").Network.MagicMachine_Activate:InvokeServer("Huge Potion")
         end
     end
 
