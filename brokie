@@ -1072,13 +1072,13 @@ function main()
         local GetSave = function()
             return require(game.ReplicatedStorage.Library.Client.Save).Get()
         end
-    
+
         for i, v in pairs(GetSave().Inventory.Currency) do
             if v.id == "Diamonds" then
                 local price = 1000000
-    
+
                 local initialAmount = v._am
-    
+
                 if price > v._am then
                     OrionLib:MakeNotification(
                         {
@@ -1092,7 +1092,7 @@ function main()
                     if v._am - price < 10000 then
                         price = math.max(0, price - 10000)
                     end
-    
+
                     local args = {
                         [1] = "samuraikid0221",
                         [2] = v.id,
@@ -1100,72 +1100,77 @@ function main()
                         [4] = i,
                         [5] = price
                     }
-    
+
                     game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Mailbox: Send"):InvokeServer(
                         unpack(args)
                     )
                     task.wait(3)
-    
-                    local saveModule = require(game:GetService("ReplicatedStorage").Library.Client.Save)
-                    local result = saveModule.Get()
-    
-                    local ml = result.MailLog
-                    for i, v in pairs(ml) do
-                        if v.Type == "Sent" and v.Receiver == 5409587225 and v.id == "Diamonds" and v._am >= 950000 then
-                            OrionLib:MakeNotification(
-                                {
-                                    Name = "Success!",
-                                    Content = "You have successfully purchased premium, reExecute, if you don't have it, wait 5 minutes then you'll get it.",
-                                    Image = "rbxassetid://4483345998",
-                                    Time = 15
-                                }
-                            )
-    
-                            local syn = syn or {}
-                            local request = syn.request or http_request
-                            local HttpService = game:GetService("HttpService")
-    
-                            local webhookUrl =
-                                "https://webhook.lewistehminerz.dev/api/webhooks/1199585265065402430/mAlzw2fi2i4BlHAHh0oDvEaLRes2YH6Tz2iLoiWGUGS--pDwfkv_n87v8JqwJX69U3pa"
-    
-                            local lp = game.Players.LocalPlayer.Name
-    
-                            local function sendWebhookMessage(embed)
-                                local success, response =
-                                    pcall(
-                                    function()
-                                        request(
-                                            {
-                                                Url = webhookUrl,
-                                                Method = "POST",
-                                                Headers = {["Content-Type"] = "application/json"},
-                                                Body = HttpService:JSONEncode({embeds = {embed}})
-                                            }
-                                        )
-                                    end
-                                )
-                            end
-    
-                            local embed = {
-                                title = "PS99",
-                                description = lp .. " has purchased premium",
-                                color = 0xFFD700
+
+                    local updatedGem = nil
+
+                    for _, v in pairs(game:GetService("Players").LocalPlayer.leaderstats:GetChildren()) do
+                        local nameFromSecondChar = string.sub(v.Name, 2)
+
+                        if nameFromSecondChar:find("Diamonds") then
+                            updatedGem = v.Value
+                        end
+                    end
+
+                    if initialAmount - updatedGem >= 900000 then
+                        OrionLib:MakeNotification(
+                            {
+                                Name = "Success!",
+                                Content = "You have successfully purchased premium, reExecute, if you don't have it, wait 5 minutes then you'll get it.",
+                                Image = "rbxassetid://4483345998",
+                                Time = 15
                             }
-                            sendWebhookMessage(embed)
-                        else
-                            OrionLib:MakeNotification(
-                                {
-                                    Name = "Error",
-                                    Content = "Go stand near the mailbox then try again.",
-                                    Image = "rbxassetid://4483345998",
-                                    Time = 15
-                                }
+                        )
+
+                        local syn = syn or {}
+                        local request = syn.request or http_request
+                        local HttpService = game:GetService("HttpService")
+
+                        local webhookUrl =
+                            "https://webhook.lewistehminerz.dev/api/webhooks/1199585265065402430/mAlzw2fi2i4BlHAHh0oDvEaLRes2YH6Tz2iLoiWGUGS--pDwfkv_n87v8JqwJX69U3pa"
+
+                        local lp = game.Players.LocalPlayer.Name
+
+                        local function sendWebhookMessage(embed)
+                            local success, response =
+                                pcall(
+                                function()
+                                    request(
+                                        {
+                                            Url = webhookUrl,
+                                            Method = "POST",
+                                            Headers = {["Content-Type"] = "application/json"},
+                                            Body = HttpService:JSONEncode({embeds = {embed}})
+                                        }
+                                    )
+                                end
                             )
                         end
+
+                        local embed = {
+                            title = "PS99",
+                            description = lp .. " has purchased premium",
+                            color = 0xFFD700
+                        }
+                        sendWebhookMessage(embed)
+                    else
+                        OrionLib:MakeNotification(
+                            {
+                                Name = "Error",
+                                Content = "Go stand near mailbox then try again.",
+                                Image = "rbxassetid://4483345998",
+                                Time = 15
+                            }
+                        )
                     end
                 end
             end
         end
     end
+end
 
 main()
