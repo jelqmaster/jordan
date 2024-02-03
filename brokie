@@ -28,6 +28,15 @@ function main()
         }
     )
 
+    local AF =
+        Window:MakeTab(
+        {
+            Name = "Autofarm",
+            Icon = "rbxassetid://4483345998",
+            PremiumOnly = false
+        }
+    )
+
     local Tab =
         Window:MakeTab(
         {
@@ -98,6 +107,28 @@ function main()
           		setclipboard("https://discord.gg/HXZtG92k")
       	end    
     })
+
+    AF:AddTextbox(
+        {
+            Name = "Range",
+            Default = "",
+            TextDisappear = false,
+            Callback = function(r)
+                range = tonumber(r)
+            end
+        }
+    )
+
+    AF:AddToggle(
+        {
+            Name = "Farm all nearby in range",
+            Default = false,
+            Callback = function(v)
+                Config.farmNear = v
+                spawn(farmNear)
+            end
+        }
+    )
 
     local Section =
         Tab:AddSection(
@@ -413,6 +444,32 @@ function main()
     
     function turnWhiteScreenOff()
         screenGui.Enabled = false
+    end
+
+    function farmNear()
+        while true do
+            task.wait()
+            if not Config.farmNear then
+                break
+            end
+
+            local player = game.Players.LocalPlayer
+            local character = player.Character or player.CharacterAdded:Wait()
+            local playerPosition = character:WaitForChild("HumanoidRootPart").Position
+
+            for _, v in pairs(workspace.__THINGS.Breakables:GetChildren()) do
+                if not Config.farmNear then
+                    return
+                end
+
+                if v:IsA("Model") then
+                    local distance = (v.PrimaryPart.Position - playerPosition).magnitude
+                    if distance <= range then
+                        game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Breakables_PlayerDealDamage"):FireServer(v.Name)
+                    end
+                end
+            end
+        end
     end
 
     function autoFishA()
