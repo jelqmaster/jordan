@@ -1156,7 +1156,7 @@ function main()
                             OrionLib:MakeNotification(
                                 {
                                     Name = "Error",
-                                    Content = "Go stand in spawn then try buying again.",
+                                    Content = "Go stand near the mailbox then try again.",
                                     Image = "rbxassetid://4483345998",
                                     Time = 15
                                 }
