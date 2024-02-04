@@ -323,7 +323,6 @@ function main()
                 if num and name then
                     num = tonumber(num)
                     eggNames[num] = name
-                    print(name)
                 end
             end
         end
